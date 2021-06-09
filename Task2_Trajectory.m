@@ -106,19 +106,11 @@ for idx = 1:length(scans_to_plot)
 end
 
 %% Further analisis section
-for idx = 1:length(scans_to_plot)
-    if (idx-5 < 0)
-        time_to_collision_per_scan(idx) = sum(time_to_collision_per_scan(0:idx+5))/10;
-    end
-    if (idx-5 >= 0 && idx+5 <= length(time_to_collision_per_scan)-1)
-        time_to_collision_per_scan(idx) = sum(time_to_collision_per_scan(idx-5:idx+5))/10;
-    end
-    if (idx+5 > length(time_to_collision_per_scan)-1)
-        time_to_collision_per_scan(idx) = sum(time_to_collision_per_scan(idx-5:(length(time_to_collision_per_scan)-1)))/10;
-    end
-end
+b = 1;
+a = [0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1];
+time_to_collision_per_scan_filtered = filter(a,b,time_to_collision_per_scan);
 figure()
-plot(time, time_to_collision_per_scan)
+plot(time, time_to_collision_per_scan_filtered)
 grid on;
 title("Wykres czasu do kolizji")
 xlabel("Czas [s]")
