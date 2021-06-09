@@ -34,14 +34,15 @@ for scan_idx = scans_to_plot
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%% Insert Contour Code here %%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    grid_map_current = grid_map_current > 0.52;
-    se = strel('disk', 3);
+    grid_map_current = grid_map_current > 0.51;
+    se = strel('disk', 8);
     grid_map_current = imclose(grid_map_current, se);
     % Filter image based on image properties.
-    grid_map_current = bwpropfilt(grid_map_current, 'Area', [80, Inf]);
+    grid_map_current = bwpropfilt(grid_map_current, 'Area', [1000 + eps(1000), Inf]);
 
     % Get properties.
-    properties = regionprops(grid_map_current, 'Area', 'ConvexHull'); 
+    properties = regionprops(grid_map_current, 'Area', 'ConvexHull');
+    counturs = {pro
     % Tip: Use Matlab tool image region analizer
     
     
@@ -49,7 +50,7 @@ for scan_idx = scans_to_plot
     % contours - this variable should be cell array with each cell containing Nx2
     % vectors of X Y contour point coordinates i.e. contours={properties.ConvexHull}
     % grid_map_to_display - this variable will be visualized. Change it to debug image processign steps
-    contours = {properties.ConvexHull};
+    contours = {};
     grid_map_to_display = grid_map_current; % this variable will be visualized. Change it to debug image processign steps
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
