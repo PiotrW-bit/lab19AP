@@ -35,10 +35,10 @@ for scan_idx = scans_to_plot
     %%%%%%%%%%%%%%%%%%% Insert Contour Code here %%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     grid_map_current = grid_map_current > 0.52;
-    se = strel('disk', 3);
+    se = strel('disk', 4);
     grid_map_current = imclose(grid_map_current, se);
     % Filter image based on image properties.
-    grid_map_current = bwpropfilt(grid_map_current, 'Area', [80, Inf]);
+    grid_map_current = bwpropfilt(grid_map_current, 'Area', [40, Inf]);
 
     % Get properties.
     properties = regionprops(grid_map_current, 'Area', 'ConvexHull'); 
